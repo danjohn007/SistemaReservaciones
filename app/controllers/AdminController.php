@@ -9,6 +9,7 @@ class AdminController extends BaseController {
     private $servicioModel;
     private $especialistaModel;
     private $usuarioModel;
+    private $configuracionModel;
     
     public function __construct() {
         parent::__construct();
@@ -16,6 +17,7 @@ class AdminController extends BaseController {
         $this->servicioModel = new Servicio();
         $this->especialistaModel = new Especialista();
         $this->usuarioModel = new Usuario();
+        $this->configuracionModel = new Configuracion();
     }
     
     /**
@@ -309,5 +311,63 @@ class AdminController extends BaseController {
             'fechaInicio' => $fechaInicio,
             'fechaFin' => $fechaFin
         ]);
+    }
+    
+    /**
+     * Página de configuraciones del sistema
+     */
+    public function configuraciones() {
+        $this->requireAuth();
+        $this->requireRole('superadmin');
+        
+        $configuraciones = $this->configuracionModel->getAllGrouped();
+        
+        $this->view('admin/configuraciones/index', [
+            'title' => 'Configuraciones del Sistema',
+            'configuraciones' => $configuraciones,
+            'csrf_token' => $this->generateCSRFToken()
+        ]);
+    }
+    
+    /**
+     * Guardar configuraciones del sistema
+     */
+    public function saveConfiguraciones() {
+        $this->requireAuth();
+        $this->requireRole('superadmin');
+        
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->redirect('admin/configuraciones');
+        }
+        
+        if (!$this->verifyCSRFToken($this->post('csrf_token'))) {
+            $_SESSION['error'] = 'Token de seguridad inválido';
+            $this->redirect('admin/configuraciones');
+        }
+        
+        try {
+            $configuraciones = $this->post('config', []);
+            
+            // Sanitizar y guardar cada configuración
+            $updated = 0;
+            foreach ($configuraciones as $clave => $valor) {
+                // Sanitizar valor excepto para contraseñas y tokens
+                if (strpos($clave, 'password') === false && strpos($clave, 'secret') === false && strpos($clave, 'token') === false) {
+                    $valor = $this->sanitize($valor);
+                }
+                
+                $this->configuracionModel->set($clave, $valor);
+                $updated++;
+            }
+            
+            $this->logSecurity('configuraciones_actualizadas', "Total actualizado: $updated configuraciones");
+            $_SESSION['success'] = "Se actualizaron $updated configuraciones exitosamente";
+            
+        } catch (Exception $e) {
+            error_log("Error al guardar configuraciones: " . $e->getMessage());
+            $_SESSION['error'] = 'Error al guardar las configuraciones';
+        }
+        
+        $this->redirect('admin/configuraciones');
     }
 }
