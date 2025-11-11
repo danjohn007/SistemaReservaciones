@@ -2,8 +2,13 @@
 -- SQL para agregar configuraciones al sistema ReserBot
 -- Módulo de Configuraciones
 -- =====================================================
+-- 
+-- NOTA: Ajuste el nombre de la base de datos según su configuración
+-- Opción 1: USE i45com_reserbot;  (Producción)
+-- Opción 2: USE reserbot_db;       (Desarrollo)
+-- =====================================================
 
-USE i45com_reserbot;
+-- USE i45com_reserbot;
 
 -- Eliminar configuraciones existentes que vamos a actualizar/reemplazar
 DELETE FROM configuraciones WHERE clave IN (
