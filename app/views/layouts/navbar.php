@@ -40,6 +40,11 @@
                                 <a href="<?= BASE_URL ?>/admin/reportes" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                     <i class="fas fa-chart-bar mr-2"></i> Reportes
                                 </a>
+                                <?php if ($_SESSION['user_role'] === 'superadmin'): ?>
+                                    <a href="<?= BASE_URL ?>/configuracion" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        <i class="fas fa-cog mr-2"></i> Configuraciones
+                                    </a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     <?php endif; ?>
