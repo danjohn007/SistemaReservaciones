@@ -1,0 +1,27 @@
+# Logs
+logs/*.log
+*.log
+
+# System files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Temporary files
+/tmp/*
+!/tmp/.gitkeep
+
+# Environment files
+.env
+.env.local
+
+# Dependencies (if using composer in future)
+/vendor/
+
+# Cache
+/cache/*
+!/cache/.gitkeep
