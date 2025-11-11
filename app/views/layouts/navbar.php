@@ -3,8 +3,15 @@
         <div class="flex items-center justify-between h-16">
             <div class="flex items-center">
                 <a href="<?= BASE_URL ?>" class="text-2xl font-bold flex items-center">
-                    <i class="fas fa-calendar-check mr-2"></i>
-                    ReserBot
+                    <?php 
+                    $siteLogo = getConfig('sitio_logo');
+                    if ($siteLogo): 
+                    ?>
+                        <img src="<?= htmlspecialchars($siteLogo) ?>" alt="Logo" class="h-10 mr-2">
+                    <?php else: ?>
+                        <i class="fas fa-calendar-check mr-2"></i>
+                    <?php endif; ?>
+                    <?= getConfig('sitio_nombre', 'ReserBot') ?>
                 </a>
             </div>
             

@@ -58,3 +58,29 @@ if (session_status() === PHP_SESSION_NONE) {
     session_name(SESSION_NAME);
     session_start();
 }
+
+/**
+ * Helper function to get configuration values from database
+ * @param string $clave Configuration key
+ * @param mixed $default Default value if not found
+ * @return mixed Configuration value
+ */
+function getConfig($clave, $default = null) {
+    static $configCache = null;
+    
+    // Load configurations on first call
+    if ($configCache === null) {
+        try {
+            require_once __DIR__ . '/database.php';
+            require_once ROOT_PATH . '/app/models/Configuracion.php';
+            
+            $configModel = new Configuracion();
+            $configCache = $configModel->getAllAsArray();
+        } catch (Exception $e) {
+            error_log("Error loading configurations: " . $e->getMessage());
+            $configCache = [];
+        }
+    }
+    
+    return isset($configCache[$clave]) ? $configCache[$clave] : $default;
+}
