@@ -20,6 +20,41 @@
                     <a href="<?= BASE_URL ?>/dashboard" class="hover:text-blue-200">
                         <i class="fas fa-dashboard mr-1"></i> Dashboard
                     </a>
+                    <?php if (in_array($_SESSION['user_role'], ['superadmin', 'admin_sucursal'])): ?>
+                        <div class="relative group">
+                            <button class="hover:text-blue-200 flex items-center">
+                                <i class="fas fa-cog mr-1"></i> Admin <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                            </button>
+                            <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden group-hover:block z-50">
+                                <?php if ($_SESSION['user_role'] === 'superadmin'): ?>
+                                    <a href="<?= BASE_URL ?>/admin/sucursales" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        <i class="fas fa-building mr-2"></i> Sucursales
+                                    </a>
+                                <?php endif; ?>
+                                <a href="<?= BASE_URL ?>/admin/servicios" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <i class="fas fa-concierge-bell mr-2"></i> Servicios
+                                </a>
+                                <a href="<?= BASE_URL ?>/admin/especialistas" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <i class="fas fa-user-md mr-2"></i> Especialistas
+                                </a>
+                                <a href="<?= BASE_URL ?>/admin/reportes" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    <i class="fas fa-chart-bar mr-2"></i> Reportes
+                                </a>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($_SESSION['user_role'] === 'especialista'): ?>
+                        <?php
+                        // Get especialista ID for horarios link
+                        $especialistaModel = new Especialista();
+                        $especialista = $especialistaModel->findByUserId($_SESSION['user_id']);
+                        if ($especialista):
+                        ?>
+                            <a href="<?= BASE_URL ?>/admin/horarios/<?= $especialista['id'] ?>" class="hover:text-blue-200">
+                                <i class="fas fa-calendar-alt mr-1"></i> Mis Horarios
+                            </a>
+                        <?php endif; ?>
+                    <?php endif; ?>
                     <a href="<?= BASE_URL ?>/auth/logout" class="hover:text-blue-200">
                         <i class="fas fa-sign-out-alt mr-1"></i> Salir
                     </a>
