@@ -11,6 +11,8 @@ Sistema completo de gestión de reservaciones y citas con múltiples niveles de 
 - **Especialistas y Servicios**: Catálogo completo de profesionales y servicios
 - **Horarios Dinámicos**: Los especialistas definen sus horarios, vacaciones y bloqueos
 - **Sistema de Calificaciones**: Evaluación de servicios y especialistas
+- **Módulo de Configuraciones**: Panel completo para personalizar el sistema (sitio, emails, WhatsApp, colores, APIs)
+- **Integraciones API**: PayPal, generación de QR, Shelly Relay, HikVision
 - **Logs de Seguridad**: Auditoría completa de acciones en el sistema
 - **Diseño Responsivo**: Interface moderna con Tailwind CSS
 
@@ -117,6 +119,37 @@ Esta herramienta verificará:
 - ✅ Tablas y datos de ejemplo
 - ✅ Configuración de PHP
 - ✅ Extensiones requeridas
+
+### 7. Configurar el Sistema (Opcional pero Recomendado)
+
+El sistema incluye un completo módulo de configuraciones. Para instalarlo:
+
+```bash
+# Ejecutar el script de configuraciones
+mysql -u root -p < database_configuraciones.sql
+```
+
+O si su base de datos tiene un nombre diferente:
+
+```bash
+mysql -u tu_usuario -p tu_base_datos < database_configuraciones.sql
+```
+
+Luego acceda a: **Admin → Configuraciones** (solo superadmin)
+
+Esto le permitirá configurar:
+- 📝 Nombre del sitio y logotipo
+- 📧 Email y servidor SMTP
+- 💬 WhatsApp chatbot
+- 📞 Teléfonos y horarios de atención
+- 🎨 Colores del sistema
+- 💳 Cuenta de PayPal
+- 🔗 APIs externas (QR, Shelly Relay, HikVision)
+- ⚙️ Configuraciones globales
+
+Para más información, consulte: `CONFIGURACIONES_README.md`
+
+Para probar el módulo: `http://localhost/reserbot/test_configuraciones.php`
 
 ## 🔐 Credenciales de Acceso
 
