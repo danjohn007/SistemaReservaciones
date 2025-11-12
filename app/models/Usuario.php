@@ -26,7 +26,7 @@ class Usuario {
             $data['telefono'] ?? null,
             $password_hash,
             $data['rol_id'],
-            $data['email_verificado'] ?? false
+            isset($data['email_verificado']) ? (int)$data['email_verificado'] : 0
         ];
         
         $this->db->query($sql, $params);

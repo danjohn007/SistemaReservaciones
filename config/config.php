@@ -18,9 +18,9 @@ define('ROOT_PATH', dirname(__DIR__));
 
 // Configuración de la base de datos
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'i45com_reserbot');
-define('DB_USER', 'i45com_reserbot');
-define('DB_PASS', 'Danjohn007!');
+define('DB_NAME', 'reserbot_db');
+define('DB_USER', 'reserbot_user');
+define('DB_PASS', 'ReserBot2024!');
 define('DB_CHARSET', 'utf8mb4');
 
 // Configuración de la aplicación
