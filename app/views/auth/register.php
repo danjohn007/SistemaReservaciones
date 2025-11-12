@@ -1,3 +1,9 @@
+<?php 
+// Ensure config is loaded
+if (!defined('ROOT_PATH')) {
+    require_once dirname(__DIR__, 3) . '/config/config.php';
+}
+?>
 <?php require_once ROOT_PATH . '/app/views/layouts/header.php'; ?>
 <?php require_once ROOT_PATH . '/app/views/layouts/navbar.php'; ?>
 
